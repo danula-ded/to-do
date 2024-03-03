@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import {StyleSheet, View, Text } from "react-native";
 
 let today = new Date().toISOString().slice(0, 10);
 

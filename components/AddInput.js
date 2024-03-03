@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Text, TouchableOpacity } from "react-native";
+import {StyleSheet, View, TextInput, Text, TouchableOpacity } from "react-native";
 
 export default function AddInput({ submitHandler }) {
   const [value, setValue] = useState("");
@@ -32,10 +32,10 @@ export default function AddInput({ submitHandler }) {
 //styles
 const styles = StyleSheet.create({
   container: {
-    flexDirection: row,
+    flexDirection: 'row',
   },
   inputContainer: {
-    flexDirection: row,
+    flexDirection: 'row',
     borderRadius: 10,
   },
   input: {

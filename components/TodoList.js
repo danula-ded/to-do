@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, Text, TouchableOpacity } from "react-native";
+import {StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
