@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0cb66401-fe74-446c-95be-2550fceb2366"
+      }
+    },
+    "owner": "danula"
   }
 }
