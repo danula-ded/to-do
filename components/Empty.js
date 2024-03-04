@@ -8,7 +8,7 @@ export default function Empty() {
         style={styles.EmptyImage}
         source={require("../assets/Empty.png")}
       />
-      <Text style={styles.EmptyText}>Add To-Do.</Text>
+      <Text style={styles.EmptyText}>Пока у тебя нет задач!!</Text>
     </View>
   );
 }
@@ -24,10 +24,12 @@ const styles = StyleSheet.create({
     height: 200,
   },
   EmptyText: {
-    width: 50,
+    margin: 16,
+    color: 'whitesmoke',
+    fontSize: 16,
+    fontWeight:'bold',
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "whitesmoke",
     marginBottom: 20,
     borderRadius: 50,
   },
