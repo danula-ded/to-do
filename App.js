@@ -1,8 +1,13 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import {StyleSheet, View, FlatList } from "react-native";
-
-import TodoList from "./components/TodoList";
+import {
+  View,
+  StatusBar,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+} from "react-native";
+import DraggableList from "./components/DraggableList";
 import AddInput from "./components/AddInput";
 import Header from "./components/Header";
 import Empty from "./components/Empty";
@@ -14,7 +19,8 @@ export default function App() {
     setData((prevTodo) => {
       return [
         {
-          value: value,
+          label: value,
+          date: new Date().toISOString().slice(0, 10), // Текущая дата
           key: Math.random().toString(),
         },
         ...prevTodo,
@@ -23,42 +29,45 @@ export default function App() {
   };
 
   const deleteItem = (key) => {
-    setData((prevTodo) => {
-      return prevTodo.filter((todo) => todo.key != key);
-    });
+    setData((prevData) => prevData.filter((item) => item.key !== key));
   };
 
   return (
-    <View style={styles.main}>
-      <View>
-        <StatusBar barStyle="light-content" backgroundColor="midnightblue" />
-      </View>
-
-      <View>
-        <FlatList
-          data={data}
-          ListHeaderComponent={() => <Header />}
-          ListEmptyComponent={() => <Empty />}
-          keyExtractor={(item) => item.key}
-          renderItem={({ item }) => (
-            <TodoList item={item} deleteItem={deleteItem} />
-          )}
-        />
-        <View>
-          <AddInput submitHandler={submitHandler} />
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
+    >
+      <ScrollView>
+        <View style={styles.main}>
+          <StatusBar barStyle="light-content" backgroundColor="midnightblue" />
+          <Header />
+          <View style={{ flex: 1 }}>
+            {data.length > 0 ? (
+              <DraggableList data={data} deleteItem={deleteItem} />
+            ) : (
+              <Empty />
+            )}
+          </View>
+          <View>
+            <AddInput submitHandler={submitHandler} />
+          </View>
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  main: {
+  container: {
+    flex: 1,
     backgroundColor: "midnightblue",
-    height: "100%",
+  },
+  main: {
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
-    padding: 8
+    justifyContent: "space-between",
+    padding: 8,
+    flex: 1,
   },
 });

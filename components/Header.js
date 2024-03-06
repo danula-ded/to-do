@@ -1,13 +1,13 @@
 import React from "react";
-import {StyleSheet, View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 let today = new Date().toISOString().slice(0, 10);
 
 export default function Header() {
   return (
     <View style={styles.container}>
-      <Text style={styles.HeaderText}>To-Do.</Text>
-      <Text style={styles.HeaderList}>{today}</Text>
+      <Text style={styles.headerText}>To-Do.</Text>
+      <Text style={styles.headerList}>{today}</Text>
     </View>
   );
 }
@@ -19,12 +19,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  HeaderText: {
+  headerText: {
     color: "white",
     fontFamily: "poppins-bold",
     fontSize: 30,
   },
-  HeaderList: {
+  headerList: {
     color: "white",
     fontFamily: "poppins-bold",
     fontSize: 20,

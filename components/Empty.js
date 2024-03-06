@@ -1,14 +1,11 @@
 import React from "react";
-import {StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image } from "react-native";
 
 export default function Empty() {
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.EmptyImage}
-        source={require("../assets/Empty.png")}
-      />
-      <Text style={styles.EmptyText}>Пока у тебя нет задач!!</Text>
+      <Image style={styles.emptyImage} source={require("../assets/empty.png")} />
+      <Text style={styles.emptyText}>Пока у тебя нет задач!!</Text>
     </View>
   );
 }
@@ -19,15 +16,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: 650,
   },
-  EmptyImage: {
+  emptyImage: {
     width: 350,
     height: 200,
   },
-  EmptyText: {
+  emptyText: {
     margin: 16,
-    color: 'whitesmoke',
+    color: "whitesmoke",
     fontSize: 16,
-    fontWeight:'bold',
+    fontWeight: "bold",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 20,
