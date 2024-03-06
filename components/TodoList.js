@@ -7,70 +7,69 @@ export default function TodoList({ item, deleteItem }) {
   const formattedTime = new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
-    <Pressable style={styles.ListContainer} onPress={() => console.log("Pressed")}>
-      <View style={styles.ComponentContainer}>
-        <View style={styles.CircleContainer}>
+    <Pressable style={styles.listContainer} onPress={() => console.log("Pressed")}>
+      <View style={styles.componentContainer}>
+        <View style={styles.circleContainer}>
           <Entypo name="circle" size={20} color="midnightblue" />
         </View>
-        <View style={styles.TextContainer}>
-          <Text style={styles.TextItem}>{item.label}</Text>
-          <Text style={styles.TextDate}>{formattedTime}</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.textItem}>{item.label}</Text>
+          <Text style={styles.textDate}>{formattedTime}</Text>
         </View>
-        <Pressable
-          style={styles.IconContainer}
-          onPress={() => deleteItem(item.key)}
-        >
+        <Pressable style={styles.iconContainer} onPress={() => deleteItem(item.key)}>
           <MaterialIcons name="delete" size={24} color="midnightblue" />
         </Pressable>
       </View>
     </Pressable>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  ListContainer: {
+  listContainer: {
     backgroundColor: "whitesmoke",
     height: "auto",
     width: 350,
-    marginBottom: 30,
+    marginBottom: 10,
     borderRadius: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 16,
   },
-  ComponentContainer: {
+  componentContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center", // Добавлено выравнивание по вертикали
     height: "auto",
     width: "auto",
   },
-  CircleContainer: {
+  circleContainer: {
     alignItems: "center",
     justifyContent: "center",
     paddingLeft: 5,
   },
-  TextContainer: {
+  textContainer: {
     flex: 1,
     paddingHorizontal: 10,
   },
-  TextItem: {
+  textItem: {
     color: "black",
     fontSize: 20,
     fontFamily: "poppins-regular",
+    marginTop: 10,
+    marginRight: 20,
   },
-  TextDate: {
+  textDate: {
     color: "goldenrod",
     fontSize: 15,
     fontFamily: "poppins-regular",
     borderRadius: 10,
     width: 80,
   },
-  IconContainer: {
+  iconContainer: {
     alignItems: "flex-end",
     justifyContent: "center",
-    marginLeft: 10,
     height: 40,
     borderRadius: 10,
+    marginLeft: "auto", // Добавлено для прижатия к правому краю
   },
 });

@@ -6,7 +6,7 @@ let today = new Date().toISOString().slice(0, 10);
 export default function Header() {
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>To-Do.</Text>
+      <Text style={styles.headerText}>To-Do</Text>
       <Text style={styles.headerList}>{today}</Text>
     </View>
   );
@@ -14,7 +14,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
+    height: 50,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
