@@ -20,8 +20,7 @@ export default function App() {
     setData((prevTodo) => [
       {
         label: value,
-        date: new Date().toISOString().slice(0, 10),
-        key: Math.random().toString(),
+        key: Date.now(),
       },
       ...prevTodo,
     ]);
@@ -33,28 +32,25 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
-      >
+      <StatusBar barStyle="light-content" backgroundColor="midnightblue" />
+      <Header />
+      <View style={styles.main}>
         <ScrollView>
-          <View style={styles.main}>
-            <StatusBar barStyle="light-content" backgroundColor="midnightblue" />
-            <Header />
-            <View style={styles.listContainer}>
-              {data.length > 0 ? (
-                <DraggableList data={data} deleteItem={deleteItem} />
-              ) : (
-                <Empty />
-              )}
-            </View>
-            <View>
-              <AddInput submitHandler={submitHandler} />
-            </View>
+          <View style={styles.listContainer}>
+            {data.length > 0 ? (
+              <DraggableList
+                data={data}
+                deleteItem={deleteItem}
+                onDragEnd={({ data }) => setData(data)}
+              />
+            ) : (
+              <Empty />
+            )}
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
+
+        <AddInput submitHandler={submitHandler} />
+      </View>
     </SafeAreaView>
   );
 }

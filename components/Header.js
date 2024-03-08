@@ -14,20 +14,19 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
+    flexBasis: 50,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
   },
   headerText: {
     color: "white",
     fontFamily: "poppins-bold",
-    fontSize: 30,
+    fontSize: 32,
   },
   headerList: {
     color: "white",
     fontFamily: "poppins-bold",
     fontSize: 20,
-    marginRight: 20,
   },
 });

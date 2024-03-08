@@ -19,7 +19,11 @@ export default function AddInput({ submitHandler }) {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder="Add Task..." onChangeText={onChangeText} />
+        <TextInput
+          style={styles.input}
+          placeholder="Добавить задачу..."
+          onChangeText={onChangeText}
+        />
       </View>
       <Pressable style={styles.submitButton} onPress={handleAdd}>
         <Feather name="plus" size={24} color="midnightblue" />
