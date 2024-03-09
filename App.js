@@ -44,7 +44,7 @@ export default function App() {
               <DraggableList
                 data={data}
                 deleteItem={deleteItem}
-                onDragEnd={({ data }) => setData(data)}
+                setData={setData}
               />
             ) : (
               <Empty />

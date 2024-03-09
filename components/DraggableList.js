@@ -9,7 +9,7 @@ export default function DraggableList(props) {
   );
 
   const handleDragEnd = ({ data: updatedData }) => {
-    // Обработка окончания перетаскивания (если нужно)
+    props.setData(updatedData);
   };
 
   return (
