@@ -3,18 +3,18 @@ import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function TodoElement({ item, deleteItem, drag }) {
+export default function TodoElement(props) {
   return (
-    <Pressable style={styles.listContainer} onLongPress={drag}>
+    <Pressable style={[styles.listContainer, { backgroundColor: props.isActive ? "lightgrey" : "whitesmoke" }]} onLongPress={props.drag}>
       <View style={styles.componentContainer}>
         <Pressable
           style={styles.circleContainer}
-          onPress={() => deleteItem(item.key)}
+          onPress={() => props.deleteItem(props.item.key)}
         >
           <Entypo name="circle" size={20} color="midnightblue" />
         </Pressable>
         <View style={styles.textContainer}>
-          <Text style={styles.textItem}>{item.label}</Text>
+          <Text style={styles.textItem}>{props.item.label}</Text>
         </View>
         <Pressable
           style={styles.iconContainer}

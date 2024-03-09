@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Pressable } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-export default function AddInput({ submitHandler }) {
+export default function AddInput(props) {
   const [value, setValue] = useState("");
 
   const handleAdd = () => {
     if (value.trim() !== "") {
-      submitHandler(value);
+      props.submitHandler(value);
       setValue("");
     }
   };

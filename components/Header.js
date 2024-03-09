@@ -1,13 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-let today = new Date().toISOString().slice(0, 10);
 
-export default function Header() {
+export default function Header(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>To-Do</Text>
-      <Text style={styles.headerList}>{today}</Text>
+      <Text style={styles.headerList}>{props.currentDate}</Text>
     </View>
   );
 }

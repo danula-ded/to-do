@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StatusBar,
   StyleSheet,
-  KeyboardAvoidingView,
   ScrollView,
-  Platform,
   SafeAreaView,
 } from "react-native";
 import DraggableList from "./components/DraggableList";
@@ -15,6 +13,7 @@ import Empty from "./components/Empty";
 
 export default function App() {
   const [data, setData] = useState([]);
+  const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0, 10));
 
   const submitHandler = (value) => {
     setData((prevTodo) => [
@@ -26,6 +25,10 @@ export default function App() {
     ]);
   };
 
+  useEffect(() => {
+    setCurrentDate(new Date().toISOString().slice(0, 10));
+  }, [data]);
+
   const deleteItem = (key) => {
     setData((prevData) => prevData.filter((item) => item.key !== key));
   };
@@ -33,7 +36,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="midnightblue" />
-      <Header />
+      <Header currentDate={currentDate}/>
       <View style={styles.main}>
         <ScrollView>
           <View style={styles.listContainer}>
