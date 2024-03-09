@@ -4,7 +4,7 @@ import DraggableFlatList from "react-native-draggable-flatlist";
 import TodoElement from "./TodoElement";
 
 export default function DraggableList(props) {
-  const renderItem = (item, index, drag, isActive) => (
+  const renderItem = ({ item, index, drag, isActive }) => (
     <TodoElement item={item} deleteItem={props.deleteItem} drag={drag} isActive={isActive} />
   );
 
