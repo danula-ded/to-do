@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 20,
     backgroundColor: "white",
-    width: 300,
+    width: 260,
     marginRight: 20,
     padding: 10,
     marginBottom: 20,
