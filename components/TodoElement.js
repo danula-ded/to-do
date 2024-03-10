@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function TodoElement(props) {
+  const [starred, setStarred] = useState(false);
+
+  const handleStarPress = () => {
+    setStarred(!starred);
+    props.moveTaskToTop(props.item.key);
+  };
+
   return (
-    <Pressable style={[styles.listContainer, { backgroundColor: props.isActive ? "lightgrey" : "whitesmoke" }]} onLongPress={props.drag}>
+    <Pressable
+      style={[
+        styles.listContainer,
+        { backgroundColor: props.isActive ? "lightgrey" : "whitesmoke" },
+      ]}
+      onLongPress={props.drag}
+    >
       <View style={styles.componentContainer}>
         <Pressable
           style={styles.circleContainer}
@@ -18,9 +31,16 @@ export default function TodoElement(props) {
         </View>
         <Pressable
           style={styles.iconContainer}
-          onPress={() => console.log("eeeeeeee")}
+          onPress={() => {
+            props.moveTaskToTop(props.item.key);
+            handleStarPress();
+          }}
         >
-          <MaterialIcons name="delete" size={24} color="midnightblue" />
+          <MaterialCommunityIcons
+            name={starred ? "star" : "star-outline"}
+            size={24}
+            color={starred ? "gold" : "midnightblue"}
+          />
         </Pressable>
       </View>
     </Pressable>

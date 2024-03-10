@@ -13,7 +13,9 @@ import Empty from "./components/Empty";
 
 export default function App() {
   const [data, setData] = useState([]);
-  const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0, 10));
+  const [currentDate, setCurrentDate] = useState(
+    new Date().toISOString().slice(0, 10)
+  );
 
   const submitHandler = (value) => {
     setData((prevTodo) => [
@@ -33,10 +35,25 @@ export default function App() {
     setData((prevData) => prevData.filter((item) => item.key !== key));
   };
 
+  // Функция для перемещения задачи на первое место
+  const moveTaskToTop = (key) => {
+    const taskIndex = data.findIndex((item) => item.key === key);
+  
+    if (taskIndex !== -1) {
+      const updatedData = [
+        data[taskIndex],
+        ...data.slice(0, taskIndex),
+        ...data.slice(taskIndex + 1),
+      ];
+  
+      setData(updatedData);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="midnightblue" />
-      <Header currentDate={currentDate}/>
+      <Header currentDate={currentDate} />
       <View style={styles.main}>
         <ScrollView>
           <View style={styles.listContainer}>
@@ -45,6 +62,7 @@ export default function App() {
                 data={data}
                 deleteItem={deleteItem}
                 setData={setData}
+                moveTaskToTop={moveTaskToTop}
               />
             ) : (
               <Empty />

@@ -4,7 +4,10 @@ import { StyleSheet, View, Text, Image } from "react-native";
 export default function Empty() {
   return (
     <View style={styles.container}>
-      <Image style={styles.emptyImage} source={require("../assets/empty.png")} />
+      <Image
+        style={styles.emptyImage}
+        source={require("../assets/empty.png")}
+      />
       <Text style={styles.emptyText}>Пока у тебя нет задач!!</Text>
     </View>
   );
@@ -12,9 +15,9 @@ export default function Empty() {
 
 const styles = StyleSheet.create({
   container: {
+    height: 500,
     alignItems: "center",
     justifyContent: "center",
-    height: 650,
   },
   emptyImage: {
     width: 350,
@@ -25,8 +28,6 @@ const styles = StyleSheet.create({
     color: "whitesmoke",
     fontSize: 16,
     fontWeight: "bold",
-    justifyContent: "center",
-    alignItems: "center",
     marginBottom: 20,
     borderRadius: 50,
   },

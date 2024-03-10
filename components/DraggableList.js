@@ -5,7 +5,7 @@ import TodoElement from "./TodoElement";
 
 export default function DraggableList(props) {
   const renderItem = ({ item, index, drag, isActive }) => (
-    <TodoElement item={item} deleteItem={props.deleteItem} drag={drag} isActive={isActive} />
+    <TodoElement item={item} deleteItem={props.deleteItem} drag={drag} isActive={isActive} moveTaskToTop={props.moveTaskToTop} />
   );
 
   const handleDragEnd = ({ data: updatedData }) => {
