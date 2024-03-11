@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StatusBar, StyleSheet, SafeAreaView } from "react-native";
 
 import Header from "./components/Header";
-
-import TaskStatsTab from "./components/TaskStatsTab";
-import ChartsTab from "./components/ChartsTab";
+import StatsTab from "./components/StatsTab"; // Изменил импорт
 import SettingsTab from "./components/SettingsTab";
 import TabsControl from "./components/TabsControl";
 import TaskTab from "./components/TaskTab";
@@ -31,13 +29,11 @@ export default function App() {
       <View style={styles.main}>
         {activeTab === "tasks" ? (
           <TaskTab data={data} setData={setData} />
-        ) : activeTab === "taskStats" ? (
-          <TaskStatsTab data={data} currentDate={currentDate} />
-        ) : activeTab === "charts" ? (
-          <ChartsTab data={data} currentDate={currentDate} />
-        ) : (
+        ) : activeTab === "stats" ? ( // Изменил на "stats"
+          <StatsTab data={data} currentDate={currentDate} />
+        ) : activeTab === "settings" ? (
           <SettingsTab />
-        )}
+        ) : null}
         <TabsControl activeTab={activeTab} switchTab={switchTab} />
       </View>
     </SafeAreaView>
@@ -55,8 +51,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 8,
-  },
-  listContainer: {
-    flex: 1,
   },
 });
