@@ -56,9 +56,6 @@ export default function TaskTab({ data, setData }) {
       </ScrollView>
 
       <AddInput submitHandler={submitHandler} />
-
-      {/* Используйте StatsTab вместо ChartsTab и TaskStatsTab */}
-      <StatsTab data={data} currentDate={new Date().toISOString().slice(0, 10)} />
     </>
   );
 }

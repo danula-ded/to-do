@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { PieChart } from 'react-native-chart-kit';
 
 export default function StatsTab({ data, currentDate }) {
@@ -83,22 +83,20 @@ export default function StatsTab({ data, currentDate }) {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {renderPieChart(weeklyData, "Tasks completed in the last week:")}
       {renderPieChart(monthlyData, "Tasks completed in the last month:")}
       {renderPieChart(allTimeData, "All-time tasks completed:")}
       <Text style={styles.text}>
         Total completed tasks: {data.filter((item) => item.completed).length}
       </Text>
-    </View>
+    </ScrollView >
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    flex: 1
   },
   text: {
     color: "white",
