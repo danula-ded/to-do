@@ -4,6 +4,7 @@ import { ScrollView, View, StyleSheet } from "react-native";
 import DraggableList from "./DraggableList";
 import Empty from "./Empty";
 import AddInput from "./AddInput";
+import StatsTab from "./StatsTab"; // Изменил импорт
 
 export default function TaskTab({ data, setData }) {
   const submitHandler = (value) => {
@@ -11,6 +12,8 @@ export default function TaskTab({ data, setData }) {
       {
         label: value,
         key: Date.now(),
+        completed: false,
+        date: new Date().toISOString().slice(0, 10),
       },
       ...prevTodo,
     ]);
@@ -53,6 +56,9 @@ export default function TaskTab({ data, setData }) {
       </ScrollView>
 
       <AddInput submitHandler={submitHandler} />
+
+      {/* Используйте StatsTab вместо ChartsTab и TaskStatsTab */}
+      <StatsTab data={data} currentDate={new Date().toISOString().slice(0, 10)} />
     </>
   );
 }

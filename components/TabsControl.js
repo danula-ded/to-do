@@ -1,7 +1,8 @@
+//TabsControl.js
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-export default TabsControl = ({ activeTab, switchTab }) => {
+export default function TabsControl({ activeTab, switchTab }) {
   return (
     <View style={styles.container}>
       <Pressable
@@ -11,16 +12,10 @@ export default TabsControl = ({ activeTab, switchTab }) => {
         <Text style={styles.tabText}>Tasks</Text>
       </Pressable>
       <Pressable
-        style={[styles.tab, activeTab === "taskStats" && styles.activeTab]}
-        onPress={() => switchTab("taskStats")}
+        style={[styles.tab, activeTab === "stats" && styles.activeTab]} // Изменил на "stats"
+        onPress={() => switchTab("stats")} // Изменил на "stats"
       >
         <Text style={styles.tabText}>Stats</Text>
-      </Pressable>
-      <Pressable
-        style={[styles.tab, activeTab === "charts" && styles.activeTab]}
-        onPress={() => switchTab("charts")}
-      >
-        <Text style={styles.tabText}>Charts</Text>
       </Pressable>
       <Pressable
         style={[styles.tab, activeTab === "settings" && styles.activeTab]}
@@ -30,7 +25,7 @@ export default TabsControl = ({ activeTab, switchTab }) => {
       </Pressable>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -39,7 +34,7 @@ const styles = StyleSheet.create({
     backgroundColor: "midnightblue",
     justifyContent: "space-around",
     alignItems: "center",
-    padding:8
+    padding: 8,
   },
   tab: {
     flex: 1,
