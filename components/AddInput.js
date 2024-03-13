@@ -88,6 +88,5 @@ const styles = StyleSheet.create({
     backgroundColor: "whitesmoke",
     width: 50,
     borderRadius: 50,
-    marginRight: 20,
   },
 });

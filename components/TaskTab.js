@@ -1,10 +1,10 @@
 // TaskTab.js
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ScrollView, View, StyleSheet } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import DraggableList from "./DraggableList";
 import Empty from "./Empty";
 import AddInput from "./AddInput";
-import StatsTab from "./StatsTab"; // Изменил импорт
 
 export default function TaskTab({ data, setData }) {
   const submitHandler = (value) => {
@@ -19,9 +19,49 @@ export default function TaskTab({ data, setData }) {
     ]);
   };
 
-  const deleteItem = (key) => {
-    setData((prevData) => prevData.filter((item) => item.key !== key));
+  const deleteItem = async (key) => {
+    // Находим задачу по ключу и обновляем поле completed на true
+    const updatedData = data.map((item) => {
+      if (item.key === key) {
+        return {
+          ...item,
+          completed: true,
+        };
+      }
+      return item;
+    });
+
+    // Сохраняем обновленные данные в AsyncStorage
+    try {
+      // Сначала обновляем состояние данными
+      setData(updatedData);
+
+      // Затем сохраняем обновленные данные в AsyncStorage
+      await AsyncStorage.setItem("taskData", JSON.stringify(updatedData));
+    } catch (error) {
+      console.error("Ошибка при сохранении данных: ", error);
+    }
+
+    // Обновляем состояние данными
+    setData(updatedData);
   };
+
+  // Функция для перемещения задачи наверх остается той же
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const storedData = await AsyncStorage.getItem("taskData");
+        if (storedData !== null) {
+          setData(JSON.parse(storedData));
+        }
+      } catch (error) {
+        console.error("Ошибка при получении данных: ", error);
+      }
+    };
+
+    fetchData();
+  }, []); // Получаем данные только при монтировании компонента
 
   // Функция для перемещения задачи на первое место
   const moveTaskToTop = (key) => {
@@ -38,13 +78,15 @@ export default function TaskTab({ data, setData }) {
     }
   };
 
+  const tasks = data.filter((item) => !item.completed);
+
   return (
     <>
       <ScrollView>
         <View style={styles.listContainer}>
-          {data.length > 0 ? (
+          {tasks.length > 0 ? (
             <DraggableList
-              data={data}
+              data={tasks}
               deleteItem={deleteItem}
               setData={setData}
               moveTaskToTop={moveTaskToTop}
@@ -56,9 +98,6 @@ export default function TaskTab({ data, setData }) {
       </ScrollView>
 
       <AddInput submitHandler={submitHandler} />
-
-      {/* Используйте StatsTab вместо ChartsTab и TaskStatsTab */}
-      <StatsTab data={data} currentDate={new Date().toISOString().slice(0, 10)} />
     </>
   );
 }

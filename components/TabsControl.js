@@ -12,8 +12,8 @@ export default function TabsControl({ activeTab, switchTab }) {
         <Text style={styles.tabText}>Tasks</Text>
       </Pressable>
       <Pressable
-        style={[styles.tab, activeTab === "stats" && styles.activeTab]} // Изменил на "stats"
-        onPress={() => switchTab("stats")} // Изменил на "stats"
+        style={[styles.tab, activeTab === "stats" && styles.activeTab]} 
+        onPress={() => switchTab("stats")}
       >
         <Text style={styles.tabText}>Stats</Text>
       </Pressable>
