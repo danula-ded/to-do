@@ -1,77 +1,139 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { PieChart } from 'react-native-chart-kit';
+import { BarChart, PieChart } from "react-native-chart-kit";
+import { addDays, format } from 'date-fns';
 
 export default function StatsTab({ data, currentDate }) {
-  const [weeklyData, setWeeklyData] = useState([]);
+  const [dailyData, setDailyData] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
-  const [allTimeData, setAllTimeData] = useState([]);
 
   useEffect(() => {
-    // Обновляйте данные при изменении данных задач
     updateChartData();
   }, [data]);
 
   const updateChartData = () => {
-    // Логика подсчета задач за неделю, месяц и все время
-    const tasksCompletedWeekly = getTasksCompletedInDuration("week");
-    const tasksCompletedMonthly = getTasksCompletedInDuration("month");
-    const tasksCompletedAllTime = getTasksCompletedInDuration("all");
+    const tasksCompletedDaily = getTasksCompletedInDuration("daily");
+    const tasksCompletedMonthly = getTasksCompletedInDuration("monthly");
 
-    setWeeklyData(tasksCompletedWeekly);
+    setDailyData(tasksCompletedDaily);
     setMonthlyData(tasksCompletedMonthly);
-    setAllTimeData(tasksCompletedAllTime);
   };
 
   const getTasksCompletedInDuration = (duration) => {
     const currentDateObj = new Date(currentDate);
-    const today = currentDateObj.getDate();
-    const currentMonth = currentDateObj.getMonth();
     const currentYear = currentDateObj.getFullYear();
-
-    const filteredTasks = data.filter((item) => item.completed);
+    const currentMonth = currentDateObj.getMonth();
+    const totalDaysInMonth = new Date(
+      currentYear,
+      currentMonth + 1,
+      0
+    ).getDate();
+    const taskData = [];
 
     switch (duration) {
-      case "week":
-        return filteredTasks.filter((item) => {
+      case "daily":
+        for (let i = 1; i <= totalDaysInMonth; i++) {
+          const completedTasks = data.filter((item) => {
+            const taskDate = new Date(item.date);
+            return (
+              taskDate.getFullYear() === currentYear &&
+              taskDate.getMonth() === currentMonth &&
+              taskDate.getDate() === i &&
+              item.completed
+            );
+          });
+          taskData.push(completedTasks.length);
+        }
+        return taskData;
+      case "monthly":
+        const completedTasks = data.filter((item) => {
           const taskDate = new Date(item.date);
           return (
             taskDate.getFullYear() === currentYear &&
             taskDate.getMonth() === currentMonth &&
-            taskDate.getDate() >= today - 7
+            item.completed
           );
         });
-      case "month":
-        return filteredTasks.filter((item) => {
-          const taskDate = new Date(item.date);
-          return (
-            taskDate.getFullYear() === currentYear &&
-            taskDate.getMonth() === currentMonth
-          );
-        });
-      case "all":
-        return filteredTasks;
+        return [completedTasks.length, data.length - completedTasks.length];
       default:
         return [];
     }
   };
 
-  const renderPieChart = (data, title) => {
-    return (
+  const daysOfWeek = Array.from({ length: 7 }, (_, i) =>
+    format(addDays(currentDate, -i), "d")
+  ).reverse(); // Получаем массив с днями недели, начиная с текущего дня
+
+  console.log(daysOfWeek);
+
+  return (
+    <ScrollView style={styles.container}>
       <View>
-        <Text style={styles.text}>{title}</Text>
-        <PieChart
-          data={data.map((task) => ({
-            name: task.label,
-            population: 1, // You may adjust this based on your data
-            color: task.completed ? "green" : "red", // Use green for completed tasks, red for others
-            legendFontColor: "white",
-            legendFontSize: 15,
-          }))}
-          width={200}
+        <Text style={styles.text}>Tasks completed daily:</Text>
+        <BarChart
+          data={{
+            labels: daysOfWeek,
+            datasets: [{ data: dailyData }],
+          }}
+          width={350}
           height={200}
+          yAxisSuffix=""
+          fromZero
           chartConfig={{
+            backgroundColor: "#1cc910",
+            backgroundGradientFrom: "#eff3ff",
+            backgroundGradientTo: "#efefef",
+            decimalPlaces: 0,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+            propsForDots: {
+              r: "6",
+              strokeWidth: "2",
+              stroke: "#ffa726",
+            },
+          }}
+          style={styles.chart}
+        />
+      </View>
+
+      <View>
+        <Text style={styles.text}>
+          Tasks completed vs. pending for the month:
+        </Text>
+        <PieChart
+          data={[
+            {
+              name: "Completed",
+              population: monthlyData[0],
+              color: "#2ecc71",
+              legendFontColor: "#7F7F7F",
+              legendFontSize: 15,
+            },
+            {
+              name: "Pending",
+              population: monthlyData[1],
+              color: "#ff6347",
+              legendFontColor: "#7F7F7F",
+              legendFontSize: 15,
+            },
+          ]}
+          width={300}
+          height={220}
+          chartConfig={{
+            backgroundColor: "#e26a00",
+            backgroundGradientFrom: "#fb8c00",
+            backgroundGradientTo: "#ffa726",
+            decimalPlaces: 0,
             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+            propsForLabels: {
+              fontSize: 12,
+            },
           }}
           accessor="population"
           backgroundColor="transparent"
@@ -79,28 +141,22 @@ export default function StatsTab({ data, currentDate }) {
           absolute
         />
       </View>
-    );
-  };
-
-  return (
-    <ScrollView style={styles.container}>
-      {renderPieChart(weeklyData, "Tasks completed in the last week:")}
-      {renderPieChart(monthlyData, "Tasks completed in the last month:")}
-      {renderPieChart(allTimeData, "All-time tasks completed:")}
-      <Text style={styles.text}>
-        Total completed tasks: {data.filter((item) => item.completed).length}
-      </Text>
-    </ScrollView >
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   text: {
     color: "white",
     fontSize: 18,
     marginTop: 10,
+    textAlign: "center",
+  },
+  chart: {
+    marginVertical: 8,
+    borderRadius: 16,
   },
 });

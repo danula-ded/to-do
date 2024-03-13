@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StatusBar, StyleSheet, SafeAreaView } from "react-native";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "./components/Header";
 import StatsTab from "./components/StatsTab"; // Изменил импорт
 import SettingsTab from "./components/SettingsTab";
@@ -17,6 +17,35 @@ export default function App() {
   useEffect(() => {
     setCurrentDate(new Date().toISOString().slice(0, 10));
   }, [data]);
+
+  useEffect(() => {
+    // При загрузке приложения загружаем данные из AsyncStorage
+    loadTasks();
+  }, []);
+
+  useEffect(() => {
+    // При изменении задач сохраняем их в AsyncStorage
+    saveTasks();
+  }, [data]);
+
+  const loadTasks = async () => {
+    try {
+      const tasksFromStorage = await AsyncStorage.getItem("tasks");
+      if (tasksFromStorage) {
+        setData(JSON.parse(tasksFromStorage));
+      }
+    } catch (error) {
+      console.error("Error loading tasks from AsyncStorage:", error);
+    }
+  };
+
+  const saveTasks = async () => {
+    try {
+      await AsyncStorage.setItem("tasks", JSON.stringify(data));
+    } catch (error) {
+      console.error("Error saving tasks to AsyncStorage:", error);
+    }
+  };
 
   const switchTab = (tab) => {
     setActiveTab(tab);
