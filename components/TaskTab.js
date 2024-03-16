@@ -46,8 +46,6 @@ export default function TaskTab({ data, setData }) {
     setData(updatedData);
   };
 
-  // Функция для перемещения задачи наверх остается той же
-
   useEffect(() => {
     const fetchData = async () => {
       try {

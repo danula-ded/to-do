@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { BarChart, PieChart } from "react-native-chart-kit";
-import { addDays, format } from 'date-fns';
+import { addDays, format } from "date-fns";
 
 export default function StatsTab({ data, currentDate }) {
   const [dailyData, setDailyData] = useState([]);
@@ -69,7 +69,7 @@ export default function StatsTab({ data, currentDate }) {
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Text style={styles.text}>Tasks completed daily:</Text>
+        <Text style={styles.text}>Выполненые задачи за день:</Text>
         <BarChart
           data={{
             labels: daysOfWeek,
@@ -101,19 +101,19 @@ export default function StatsTab({ data, currentDate }) {
 
       <View>
         <Text style={styles.text}>
-          Tasks completed vs. pending for the month:
+          Количество завершенные задач, на все задачи за месяц:
         </Text>
         <PieChart
           data={[
             {
-              name: "Completed",
+              name: "Завершенные",
               population: monthlyData[0],
               color: "#2ecc71",
               legendFontColor: "#7F7F7F",
               legendFontSize: 15,
             },
             {
-              name: "Pending",
+              name: "В процессе",
               population: monthlyData[1],
               color: "#ff6347",
               legendFontColor: "#7F7F7F",
