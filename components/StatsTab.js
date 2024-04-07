@@ -68,6 +68,8 @@ export default function StatsTab({ data, currentDate }) {
 
   return (
     <ScrollView style={styles.container}>
+      {/*
+
       <View>
         <Text style={styles.text}>Выполненые задачи за день:</Text>
         <BarChart
@@ -99,6 +101,8 @@ export default function StatsTab({ data, currentDate }) {
         />
       </View>
 
+      */}
+      
       <View>
         <Text style={styles.text}>
           Количество завершенные задач, на все задачи за месяц:
