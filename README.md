@@ -36,7 +36,7 @@ To-do - это мобильное приложение, разработанно
 
 1. Клонируйте репозиторий:
 ```bash
-git clone https://github.com/yourusername/TodoApp.git
+git clone https://git@github.com:danula-ded/to-do.git
 ```
 2. Установите зависимости:
 ```bash
