@@ -1,10 +1,11 @@
 # To-do - Управление временем с помощью вашего мобильного устройства
 
-![React Native](https://img.shields.io/badge/React%20Native-0.64-blue.svg)
-![Platform](https://img.shields.io/badge/Platform-iOS%20|%20Android-brightgreen)
+![React Native](https://img.shields.io/badge/React%20Native-0.73.4-blue.svg)
+![Expo](https://img.shields.io/badge/Expo-~50.0.13-blue.svg)
+![Platform](https://img.shields.io/badge/Platform-iOS%20|%20Android|%20Web-brightgreen)
 ![License](https://img.shields.io/github/license/yourusername/TodoApp)
 
-To-do - это мобильное приложение, разработанное с использованием React Native, которое помогает вам эффективно управлять вашим временем. С помощью этого приложения вы можете создавать, удалять и отмечать приоритетные задания, а также отслеживать ваш прогресс на графиках.
+To-do - это мобильное приложение, разработанное с использованием React Native и Expo, которое помогает вам эффективно управлять вашим временем. С помощью этого приложения вы можете создавать, удалять и отмечать приоритетные задания, а также отслеживать ваш прогресс на графиках.
 
 ## Скриншоты
 <div align="center">
@@ -30,25 +31,25 @@ To-do - это мобильное приложение, разработанно
 ## Технологии
 
 - **React Native**: Основной фреймворк для разработки мобильного приложения.
+- **Expo**: Библиотека под React Native длы ускореной разработки.
 - **Внутреннее хранилище**: Используется для сохранения данных на устройстве.
 
 ## Установка и запуск
 
 1. Клонируйте репозиторий:
 ```bash
-git clone https://git@github.com:danula-ded/to-do.git
+git clone https://github.com/danula-ded/to-do.git
 ```
 2. Установите зависимости:
 ```bash
-cd TodoApp
+cd to-do
 npm install
 ```
 3. Запустите проект:
 ```bash
-npx react-native run-android # для Android
-npx react-native run-ios # для iOS
+npx expo start --web
 ```
 
 
 Лицензия
-Этот проект распространяется под лицензией MIT LICENSE.
+Этот проект распространяется под лицензией [MIT LICENSE](./LICENSE).
