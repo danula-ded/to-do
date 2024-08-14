@@ -6,8 +6,9 @@
   ![React Native](https://img.shields.io/badge/React%20Native-0.73.4-blue.svg)
   ![Expo](https://img.shields.io/badge/Expo-~50.0.13-blue.svg)
   ![Platform](https://img.shields.io/badge/Platform-iOS%20|%20Android|%20Web-brightgreen)
-  ![License](https://img.shields.io/github/license/danula-ded/to-do)
-
+  
+  [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/danula-ded/to-do/blob/master/LICENSE)
+  
 </div>
 
 To-do - это мобильное приложение, разработанное с использованием React Native и Expo, которое помогает вам эффективно управлять вашим временем. С помощью этого приложения вы можете создавать, удалять и отмечать приоритетные задания, а также отслеживать ваш прогресс на графиках.
